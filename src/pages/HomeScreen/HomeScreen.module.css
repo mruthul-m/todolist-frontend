@@ -1,0 +1,71 @@
+#main-page {
+    height: 100vh;
+    width: 100%;
+    background-image: url(../../assets/aalmeidah-countryside-8415843.png);
+    background-repeat: no-repeat;
+    background-size: cover;
+    display: flex;
+    background-position: center;
+    flex-direction: column;
+
+}
+
+#nav {
+    height: fit-content;
+    padding: 1rem;
+
+}
+
+.nav-container {
+    display: flex;
+    justify-content: space-between;
+    padding: 0 1rem;
+    border-style: solid;
+    border-color: black;
+}
+
+.logo {
+    display: grid;
+    place-items: center;
+}
+
+.nav-list {
+    display: flex;
+    gap: 15rem;
+    list-style: none;
+}
+
+.nav-list li {
+    padding: 3px;
+    border-color: black;
+    border-style: solid;
+    background: #FFF449;
+    cursor: pointer;
+
+
+}
+
+.nav-list li:hover {
+    transform: rotate(5deg) scale(1.1);
+}
+
+
+
+#main-sub-page {
+    /* height: calc(100vh - 5rem); */
+    padding: 1rem;
+    flex: 1;
+}
+
+.content-container {
+    text-align: center;
+    /* height: 100%; */
+}
+
+.todo-img {
+    width: 50%;
+    border-radius: 1rem;
+    /* filter: blur(1px); */
+    object-fit: contain;
+    opacity: 0.9;
+}
