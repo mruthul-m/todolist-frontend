@@ -20,13 +20,24 @@
     display: flex;
     justify-content: space-between;
     padding: 0 1rem;
-    border-style: solid;
-    border-color: black;
+    /* border-style: solid;
+    border-color: black; */
 }
 
+.home-nav {
+    border-radius: 3rem;
+    background-color: aliceblue;
+    padding: .2rem 1rem;
+}
 .logo {
     display: grid;
     place-items: center;
+    cursor: pointer;
+}
+
+.logo img {
+    width: 30px;
+
 }
 
 .nav-list {
@@ -36,11 +47,11 @@
 }
 
 .nav-list li {
-    padding: 3px;
-    border-color: black;
-    border-style: solid;
+    padding: .4rem 1rem;
     background: #FFF449;
     cursor: pointer;
+    border-radius: 4rem;
+
 
 
 }
