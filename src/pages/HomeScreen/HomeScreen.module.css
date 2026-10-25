@@ -26,7 +26,7 @@
 
 .home-nav {
     border-radius: 3rem;
-    background-color: aliceblue;
+    background-color: rgb(240, 248, 255, .3);
     padding: .2rem 1rem;
 }
 .logo {

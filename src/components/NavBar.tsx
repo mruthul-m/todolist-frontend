@@ -25,7 +25,7 @@ function NavBar({ isHome } : NavBarProps) {
     }
 
     const navListContainer: navList[] = [
-        { id: '1', value: 'Admin' }, { id: '2', value: 'Help' }, { id: '3', value: 'Theme' }, { id: '4', value: 'Account', func: handleClick }
+        { id: '1', value: 'About' }, { id: '2', value: 'Help' }, { id: '3', value: 'Theme' }, { id: '4', value: 'Account', func: handleClick }
     ]
 
 

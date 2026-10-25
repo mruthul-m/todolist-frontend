@@ -14,6 +14,7 @@
     height: 100%;
     padding: 2rem 6rem;
 }
+
 .log-nav {
     padding: 1rem;
 }
@@ -43,4 +44,136 @@
     background-size: contain;
     background-position: center;
     background-repeat: no-repeat;
+}
+
+.login {
+    position: relative;
+}
+
+.login-container {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    height: 80%;
+    width: 80%;
+    padding: 2rem;
+    /* font-family: "Pixelify Sans", sans-serif; */
+    font-family: "Spline Sans Mono", monospace;
+}
+
+.login-header {
+    display: block;
+    text-align: center;
+}
+
+#header1 {
+    font-size: 1.4em;
+    font-weight: 550;
+    color: black;
+    margin: 0 0 .5em 0;
+}
+
+#header2 {
+    font-weight: 400;
+    margin: 0 0 .5em 0;
+    font-size: 1.1em;
+    color: rgb(88, 86, 86);
+}
+
+#headerError {
+    color: rgb(241, 50, 50);
+    font-size: .9em;
+    height: 1em;
+    width: 100%;
+    border: 2px solid transparent;
+    display: block;
+    margin: 0 0 .5em 0;
+}
+
+.login-input,
+.register {
+    display: flex;
+    flex-direction: column;
+    width: 70%;
+    margin: 0 auto;
+    font-weight: 500;
+    font-size: .79em;
+    color: grey;
+    margin-top: 2em;
+}
+
+.login-input>input {
+    box-sizing: border-box;
+    border: none;
+    background-color: #eee;
+    margin: 10px 0;
+    padding: 10px 15px;
+    font-size: 16px;
+    border-radius: 8px;
+    width: 100%;
+    outline: none;
+    font-family: monospace
+}
+
+.login-input>label {
+    margin: .3em 0;
+    font-size: 1em;
+    font-weight: 600;
+    color: rgb(0, 0, 0, .7);
+}
+
+.login-input>button {
+    width: 100%;
+    margin: 10px 0;
+    padding: 10px 15px;
+    border-radius: 8px;
+    width: 100%;
+    outline: none;
+    font-family: "Spline Sans Mono", monospace;
+    border: none;
+    font-weight: 600;
+    cursor: pointer;
+    background: #FF8C52;
+}
+
+.login-input>p>a>span {
+    color: orange;
+    cursor: pointer;
+    transition: ease(2);
+}
+
+.login-input>p>a>span:hover {
+    text-decoration: underline;
+}
+
+.register>fieldset {
+    border: none;
+    border-top: 1px solid rgb(128, 128, 128, .5);
+    outline: none;
+    height: 0;
+    /* padding: 20px; */
+}
+
+.register>fieldset>legend {
+    margin: 0 auto;
+}
+
+.register>div {
+    padding: .7em 0;
+    box-sizing: border-box;
+    width: 100%;
+}
+
+.register>div>button {
+    width: 100%;
+    margin: 10px 0;
+    padding: 10px 15px;
+    border-radius: 8px;
+    width: 100%;
+    outline: none;
+    font-family: "Spline Sans Mono", monospace;
+    border: none;
+    font-weight: 600;
+    cursor: pointer;
 }
