@@ -1,13 +1,41 @@
-import styles from '../pages/LoginScreen/LockScreen.module.css'
+import { useState } from 'react';
+import styles from '../pages/LoginScreen/LockScreen.module.css';
 
 
 const Login = () => {
 
-    const handleSubmit = (e: React.SubmitEvent) => {
+    const [error, setError] = useState<string>("");
+
+
+    const handleSubmit = async (e: React.SubmitEvent) => {
+
         e.preventDefault();
+
         const form: HTMLFormElement = e.target;
         const formData = new FormData(form);
-        console.log(formData)
+
+        if (formData.get("username") == '') {
+            setError("⛔ userId field can't be empty!")
+            return
+        }
+        if (formData.get("password") == ''){
+            setError("⛔ password field can't be empty!")
+            return
+        }
+
+        setError("")
+
+        fetch('http://localhost:8080/createUser', {
+            method: 'POST',
+            body: formData
+        }).then(res => {
+            if (!res.ok) 
+                throw new Error("Creating new user failed")
+            return res.json()
+        })
+        .then(data => console.log(data))
+        .catch(err => console.log(err))
+
 
     }
 
@@ -16,7 +44,7 @@ const Login = () => {
             <section className={styles['login-header']}>
                 <p id={styles.header1}>Welcome Back!</p>
                 <p id={styles.header2}>Login in to your TODO account</p>
-                <span id={styles.headerError}></span>
+                <span id={styles.headerError}>{error}</span>
             </section>
             <section >
                 <form onSubmit={e => handleSubmit(e)} className={styles['login-input']}>
