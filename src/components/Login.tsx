@@ -1,10 +1,14 @@
-import { useState } from 'react';
 import styles from '../pages/LoginScreen/LockScreen.module.css';
 
+interface LoginProps {
+    onReg: React.Dispatch<React.SetStateAction<boolean>>
+    setErr: React.Dispatch<React.SetStateAction<string>>
+    signErr: string
+}
 
-const Login = () => {
+const Login = ({ onReg, setErr, signErr }: LoginProps) => {
 
-    const [error, setError] = useState<string>("");
+
 
     interface LoginBody {
         name: string
@@ -25,7 +29,7 @@ const Login = () => {
 
 
         if (isValidLoginBody(loginBody)) {
-            setError("🍽️ Loading..")
+            setErr("🍽️ Loading..")
             fetch('http://localhost:8080/createUser', {
                 method: 'POST',
                 headers: {
@@ -33,14 +37,17 @@ const Login = () => {
                 },
                 body: JSON.stringify(loginBody),
             }).then(res => {
-                if (!res.ok)
+                if (!res.ok) {
+                    if (res.status == 409) setErr("😬 Oh, username already exists!")
                     throw new Error("Creating new user failed")
+                }
+
+                setErr("")
                 return res.text()
             })
                 .then(data => console.log(data))
                 .catch(err => {
                     console.log(err.message)
-                    setError("😬 Oh, some issues!")
                 })
 
         }
@@ -48,59 +55,60 @@ const Login = () => {
 
     function isValidLoginBody(loginBody: LoginBody): boolean {
 
-        const name = loginBody.name?.trim() ?? "";
-        const password = loginBody.password ?? "";
+        const name = loginBody.name;
+        const password = loginBody.password;
 
         if (name.length < 6) {
-            setError("⛔ Username must contain at least 6 characters!");
+            setErr("⛔ Username must contain at least 6 characters!");
             return false;
         }
 
         if (name.length > 9) {
-            setError("⛔ Username must not contain more than 9 characters!");
+            setErr("⛔ Username must not contain more than 9 characters!");
             return false;
         }
 
         if (!/^[A-Za-z]{4}/.test(name)) {
-            setError("⛔ The first 4 characters must be alphabets!");
+            setErr("⛔ The first 4 characters must be alphabets!");
             return false;
         }
 
         if (!/^[A-Za-z][A-Za-z0-9_]*$/.test(name)) {
-            setError("⛔ Username can contain only letters, digits, and underscores!");
+            setErr("⛔ Username can contain only letters, digits, and underscores!");
             return false;
         }
 
         if ((name.match(/[0-9]/g) ?? []).length > 2) {
-            setError("⛔ Username can contain at most 2 digits!");
+            setErr("⛔ Username can contain at most 2 digits!");
             return false;
         }
 
         if ((name.match(/_/g) ?? []).length > 1) {
-            setError("⛔ Username can contain at most 1 underscore!");
+            setErr("⛔ Username can contain at most 1 underscore!");
             return false;
         }
 
         if (password.length < 6) {
-            setError("⛔ Password must contain at least 6 characters!");
+            setErr("⛔ Password must contain at least 6 characters!");
             return false;
         }
 
         if (!/[!#@$]/.test(password)) {
-            setError("⛔ Password must contain at least one of !, #, @, $!");
+            setErr("⛔ Password must contain at least one of !, #, @, $!");
             return false;
         }
 
-        setError("");
+        setErr("");
         return true;
     }
+
 
     return (
         <div className={styles['login-container']}>
             <section className={styles['login-header']}>
                 <p id={styles.header1}>Welcome Back!</p>
                 <p id={styles.header2}>Login in to your TODO account</p>
-                <span id={styles.headerError}>{error}</span>
+                <span id={styles.headerError}>{signErr}</span>
             </section>
             <section >
                 <form onSubmit={e => handleSubmit(e)} className={styles['login-input']}>
@@ -109,14 +117,16 @@ const Login = () => {
                     <label htmlFor="password">Password</label>
                     <input type="password" name="password" />
                     <p>Forgot your password? <a><span>Reset</span></a></p>
-                    <button type="submit">Log in</button>
+                    <button type="submit" className={styles.loginBtn}>Log in</button>
                 </form>
             </section>
             <section className={styles['register']}>
                 <fieldset>
                     <legend> New to TODO App? </legend>
                 </fieldset>
-                <div><button>Register</button></div>
+                <div><button onClick={() => {
+                    onReg(prev => !prev); setErr("")
+                }}>Sign up</button></div>
             </section>
         </div>
     )

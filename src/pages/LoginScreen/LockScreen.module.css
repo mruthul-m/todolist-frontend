@@ -114,6 +114,12 @@
     width: 100%;
     outline: none;
     font-family: monospace;
+    
+}
+
+.login-input>input::placeholder {
+    font-size: 14px; 
+    font-style: italic;
 }
 
 .login-input>input[type="text"] {
@@ -138,6 +144,10 @@
     border: none;
     font-weight: 600;
     cursor: pointer;
+    
+}
+
+.loginBtn {
     background: #FF8C52;
 }
 
@@ -180,4 +190,8 @@
     border: none;
     font-weight: 600;
     cursor: pointer;
+}
+
+.signUpBtn {
+    background: #578EF5;
 }

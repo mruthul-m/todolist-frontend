@@ -7,6 +7,7 @@ import logo from '../assets/astrazeneca.png'
 type NavBarProps = {
     isHome : boolean
 }
+
 function NavBar({ isHome } : NavBarProps) {
 
     const navigate = useNavigate();
