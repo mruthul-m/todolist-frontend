@@ -6,6 +6,10 @@ const Login = () => {
 
     const [error, setError] = useState<string>("");
 
+    interface LoginBody {
+        name: string
+        password: string
+    }
 
     const handleSubmit = async (e: React.SubmitEvent) => {
 
@@ -14,29 +18,81 @@ const Login = () => {
         const form: HTMLFormElement = e.target;
         const formData = new FormData(form);
 
-        if (formData.get("username") == '') {
-            setError("⛔ userId field can't be empty!")
-            return
-        }
-        if (formData.get("password") == ''){
-            setError("⛔ password field can't be empty!")
-            return
+        const loginBody: LoginBody = {
+            name: formData.get("username")?.toString() ?? "",
+            password: formData.get("password")?.toString() ?? ""
         }
 
-        setError("")
 
-        fetch('http://localhost:8080/createUser', {
-            method: 'POST',
-            body: formData
-        }).then(res => {
-            if (!res.ok) 
-                throw new Error("Creating new user failed")
-            return res.json()
-        })
-        .then(data => console.log(data))
-        .catch(err => console.log(err))
+        if (isValidLoginBody(loginBody)) {
+            setError("🍽️ Loading..")
+            fetch('http://localhost:8080/createUser', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(loginBody),
+            }).then(res => {
+                if (!res.ok)
+                    throw new Error("Creating new user failed")
+                return res.text()
+            })
+                .then(data => console.log(data))
+                .catch(err => {
+                    console.log(err.message)
+                    setError("😬 Oh, some issues!")
+                })
 
+        }
+    }
 
+    function isValidLoginBody(loginBody: LoginBody): boolean {
+
+        const name = loginBody.name?.trim() ?? "";
+        const password = loginBody.password ?? "";
+
+        if (name.length < 6) {
+            setError("⛔ Username must contain at least 6 characters!");
+            return false;
+        }
+
+        if (name.length > 9) {
+            setError("⛔ Username must not contain more than 9 characters!");
+            return false;
+        }
+
+        if (!/^[A-Za-z]{4}/.test(name)) {
+            setError("⛔ The first 4 characters must be alphabets!");
+            return false;
+        }
+
+        if (!/^[A-Za-z][A-Za-z0-9_]*$/.test(name)) {
+            setError("⛔ Username can contain only letters, digits, and underscores!");
+            return false;
+        }
+
+        if ((name.match(/[0-9]/g) ?? []).length > 2) {
+            setError("⛔ Username can contain at most 2 digits!");
+            return false;
+        }
+
+        if ((name.match(/_/g) ?? []).length > 1) {
+            setError("⛔ Username can contain at most 1 underscore!");
+            return false;
+        }
+
+        if (password.length < 6) {
+            setError("⛔ Password must contain at least 6 characters!");
+            return false;
+        }
+
+        if (!/[!#@$]/.test(password)) {
+            setError("⛔ Password must contain at least one of !, #, @, $!");
+            return false;
+        }
+
+        setError("");
+        return true;
     }
 
     return (
@@ -63,7 +119,7 @@ const Login = () => {
                 <div><button>Register</button></div>
             </section>
         </div>
-  )
+    )
 }
 
 export default Login
