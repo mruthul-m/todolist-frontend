@@ -1,12 +1,12 @@
 import styles from '../pages/LoginScreen/LockScreen.module.css';
 
 interface LoginProps {
-    onReg: React.Dispatch<React.SetStateAction<boolean>>
+    setAccountToggle: React.Dispatch<React.SetStateAction<boolean>>
     setErr: React.Dispatch<React.SetStateAction<string>>
     signErr: string
 }
 
-const Login = ({ onReg, setErr, signErr }: LoginProps) => {
+const Login = ({ setAccountToggle, setErr, signErr }: LoginProps) => {
 
 
 
@@ -108,7 +108,7 @@ const Login = ({ onReg, setErr, signErr }: LoginProps) => {
             <section className={styles['login-header']}>
                 <p id={styles.header1}>Welcome Back!</p>
                 <p id={styles.header2}>Login in to your TODO account</p>
-                <span id={styles.headerError}>{signErr}</span>
+                <span className={styles.headerError}>{signErr}</span>
             </section>
             <section >
                 <form onSubmit={e => handleSubmit(e)} className={styles['login-input']}>
@@ -125,7 +125,7 @@ const Login = ({ onReg, setErr, signErr }: LoginProps) => {
                     <legend> New to TODO App? </legend>
                 </fieldset>
                 <div><button onClick={() => {
-                    onReg(prev => !prev); setErr("")
+                    setAccountToggle(prev => !prev); setErr("")
                 }}>Sign up</button></div>
             </section>
         </div>

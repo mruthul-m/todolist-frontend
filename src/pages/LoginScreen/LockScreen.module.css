@@ -81,7 +81,7 @@
     color: rgb(88, 86, 86);
 }
 
-#headerError {
+.headerError {
     color: rgb(241, 50, 50);
     font-size: .9em;
     height: 1em;
@@ -89,6 +89,23 @@
     border: 2px solid transparent;
     display: block;
     margin: 0 0 .5em 0;
+}
+
+.ps-match {
+    font-size: .9em;
+    height: 1em;
+    width: 100%;
+    border: 2px solid transparent;
+    display: block;
+    margin: 0 0 .5em 0;
+}
+
+.ps-match-true {
+    color: green;
+}
+
+.ps-match-false {
+    color: red;
 }
 
 .login-input,

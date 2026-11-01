@@ -22,7 +22,7 @@ function NavBar({ isHome } : NavBarProps) {
         if (e.currentTarget.childNodes[0].nodeName == 'IMG') {
             navigate('/')
         } else
-            navigate('/login')
+            navigate('/account')
     }
 
     const navListContainer: navList[] = [

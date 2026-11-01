@@ -7,7 +7,7 @@ import Register from "../../components/Register"
 
 const LoginScreen = () => {
 
-  const [onRegister, setOnRegister] = useState<boolean>(false);
+  const [accountToggle, setAccountToggle] = useState<boolean>(false);
   const [error, setError] = useState<string>("");
 
   return (
@@ -16,12 +16,12 @@ const LoginScreen = () => {
       <div className={styles['log-nav']}><NavBar isHome={false} /></div>
       <section id={styles['main-div']}>
         <div className={styles['log-content']}> {
-          !onRegister ?
+          !accountToggle ?
             <div className={`${styles['sub-content']} ${styles['login']}`}> { }
-              <Login onReg={setOnRegister} signErr={error} setErr={setError}/>
+              <Login setAccountToggle={setAccountToggle} signErr={error} setErr={setError}/>
             </div>
             : <div className={`${styles['sub-content']} ${styles['login']}`}>
-                <Register onLog={setOnRegister} signErr={error} setErr={setError}/>
+                <Register setAccountToggle={setAccountToggle} signErr={error} setErr={setError}/>
               </div>}
 
           <div className={`${styles['content-img']} ${styles['sub-content']}`}>
