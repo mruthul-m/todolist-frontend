@@ -30,25 +30,7 @@ const Login = ({ setAccountToggle, setErr, signErr }: LoginProps) => {
 
         if (isValidLoginBody(loginBody)) {
             setErr("🍽️ Loading..")
-            fetch('http://localhost:8080/createUser', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(loginBody),
-            }).then(res => {
-                if (!res.ok) {
-                    if (res.status == 409) setErr("😬 Oh, username already exists!")
-                    throw new Error("Creating new user failed")
-                }
-
-                setErr("")
-                return res.text()
-            })
-                .then(data => console.log(data))
-                .catch(err => {
-                    console.log(err.message)
-                })
+            
 
         }
     }
