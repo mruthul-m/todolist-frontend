@@ -14,12 +14,21 @@ type Body = {
     password: string
 }
 
+type Response = {
+    status : boolean
+    message: string
+    data: {
+        userId: string
+        userName: string
+    }
+}
 const Register = ({ setAccountToggle, setErr, signErr }: RegisterProps) => {
 
 
     const [passwordLock, setPasswordLock] = useState<boolean>(true);
     const [passwordMatcher, setPasswordMatcher] = useState<string>("");
-    const [match, setMatch] = useState<boolean>(false)
+    const [match, setMatch] = useState<boolean>(false);
+    const [response, setResponse] = useState<Response | null>(null);
 
     const inputRef = useRef<HTMLInputElement>(null);
     const passwordRef = useRef<HTMLInputElement>(null);
@@ -71,20 +80,27 @@ const Register = ({ setAccountToggle, setErr, signErr }: RegisterProps) => {
         }
 
         try {
-            const response = await RegisterApi.post('createUser', body)
+            const resp = await RegisterApi.post('createUser', body)
 
-            if (!response.ok) {
-                throw new Error(`Response status: ${response.status}`)
+            if (!resp.ok) {
+                if (resp.status >= 500) setErr("Dont panic! Server issue..")
+                else if (resp.status === 409) setErr("Oh userid already taken, try new user id")
+                setResponse(null)
+                throw new Error(`Response status: ${resp.status}`)
 
             }
 
-            const result = await response.json();
-            console.log(result)
+            const result : Response = await resp.json();
+            setResponse(result)
+            alert("User created successfully, you can login now.")
+            setAccountToggle((prev) => !prev)
 
         } catch (error) {
-            if (error instanceof Error)
+            if (error instanceof Error) {
+                alert("Oh sorry some issue!")
                 console.log(error.message)
-        }
+            }
+        }   
     }
 
     return (
