@@ -92,8 +92,9 @@ const Register = ({ setAccountToggle, setErr, signErr }: RegisterProps) => {
 
             const result : Response = await resp.json();
             setResponse(result)
-            alert("User created successfully, you can login now.")
+            alert(`User ${result?.data.userName} created successfully, you can login now.`)
             setAccountToggle((prev) => !prev)
+            
 
         } catch (error) {
             if (error instanceof Error) {
@@ -111,6 +112,10 @@ const Register = ({ setAccountToggle, setErr, signErr }: RegisterProps) => {
                 <span className={styles.headerError}>{signErr}</span>
             </section>
             <section >
+                
+                {/* empty braces to handle response in future */}
+                {false && response} 
+
                 <form onSubmit={(e) => handleSubmit(e)} className={styles['login-input']}>
                     <input ref={inputRef} type="text" placeholder='userId' onChange={handleChangeUsername} name='userid' />
                     <input ref={passwordRef} type="password" name='password' placeholder='password' disabled={passwordLock} onChange={handlePassword} />
